@@ -121,17 +121,23 @@ def input_page():
 @app.route("/result", methods=["POST"])
 def result():
     time_str = request.form["time"]
+
     try:
         h, m, s = map(int, time_str.split(":"))
+        time = h * 3600 + m * 60 + s
     except:
-        h, m, s = 0, 0, 0
-    time = h * 3600 + m * 60 + s
+        return redirect("/input")
+
+    if time <= 0:
+        return redirect("/input")
+
     distance = round(float(request.form["distance"]), 1)
     time_of_day = request.form["time_of_day"]
     training_type = request.form.get("training_type")
     strength_type = request.form.get("strength_type")
     detail_note = request.form.get("detail_note")
-    user_name = get_user_name()   # ←ユーザーネーム初回設定
+    user_name = get_user_name()
+
     pace = (time / 60) / distance
 
     if distance >= 15 or pace <= 3.5:
@@ -287,7 +293,7 @@ def result():
 # 終わってる（回復レベル）
     else:
         character_img = "img/manager_disgust.png"
-        comment = "………………………………………………………………。"
+        comment = "…………………………………………………………。"
 
     return render_template(
         "result.html",
