@@ -1952,6 +1952,7 @@ textarea.form_input {
     .page--input {
         width: 100%;
         max-width: none;
+        min-height: 100svh;
     }
 
     .page-title {

@@ -14,12 +14,13 @@
         <form class="form" action="/result" method="post">
             <div class="form__group">
                 <label class="form__label" for="distance">距離(km)</label>
-                <input class="form_input" type="text" id="time" name="time" inputmode="numeric" placeholder="例：01:00:00"
-                    required>
+                <input class="form__input" type="number" id="distance" name="distance" step="0.1" min="0.1" required>
             </div>
+
             <div class="form__group">
                 <label class="form__label" for="time">タイム</label>
-                <input class="form_input" type="time" id="time" name="time" step="1" required>
+                <input class="form__input" type="text" id="time" name="time" inputmode="numeric"
+                    placeholder="例：01:00:00" required>
                 <small class="time-note">例）01:00:00 = 1時間</small>
             </div>
             <div class="form__group">
