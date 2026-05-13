@@ -18,10 +18,22 @@
             </div>
 
             <div class="form__group">
-                <label class="form__label" for="time">タイム</label>
-                <input class="form__input" type="text" id="time" name="time" inputmode="numeric"
-                    placeholder="例：01:00:00" required>
-                <small class="time-note">例）01:00:00 = 1時間</small>
+                <label class="form__label">タイム</label>
+
+                <div class="time-wrap">
+                    <input class="time-box" type="text" id="hour" inputmode="numeric" maxlength="2" placeholder="00">
+
+                    <span class="time-colon">:</span>
+
+                    <input class="time-box" type="text" id="minute" inputmode="numeric" maxlength="2" placeholder="00">
+
+                    <span class="time-colon">:</span>
+
+                    <input class="time-box" type="text" id="second" inputmode="numeric" maxlength="2" placeholder="00">
+                    <input type="hidden" id="time" name="time">
+                </div>
+
+                <small class="time-note">例）1時間10分10秒</small>
             </div>
             <div class="form__group">
                 <label class="form__label" for="time_of_day">時間帯</label>

@@ -122,36 +122,27 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // 時間制御
+// 時間制御
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector(".form");
-    const timeInput = document.getElementById("time");
 
-    if (!form || !timeInput) return;
+    const hour = document.getElementById("hour");
+    const minute = document.getElementById("minute");
+    const second = document.getElementById("second");
 
-    // 初期値は必ず 00:00:00
-    timeInput.value = "00:00:00";
+    const hiddenTime = document.getElementById("time");
 
-    form.addEventListener("submit", function (e) {
-        const value = timeInput.value;
+    if (!form) return;
 
-        if (value === "00:00" || value === "00:00:00" || !value) {
-            e.preventDefault();
-            timeInput.setCustomValidity("時間を入力してください（0は不可）");
-            timeInput.reportValidity();
-            return;
-        }
+    form.addEventListener("submit", function () {
+        const h = hour.value || "00";
+        const m = minute.value || "00";
+        const s = second.value || "00";
 
-        timeInput.setCustomValidity("");
-    });
-
-    timeInput.addEventListener("input", function () {
-        const value = timeInput.value;
-
-        if (value === "00:00" || value === "00:00:00" || !value) {
-            timeInput.setCustomValidity("時間を入力してください（0は不可）");
-        } else {
-            timeInput.setCustomValidity("");
-        }
+        hiddenTime.value =
+            h.padStart(2, "0") + ":" +
+            m.padStart(2, "0") + ":" +
+            s.padStart(2, "0");
     });
 });
 

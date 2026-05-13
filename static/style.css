@@ -818,6 +818,28 @@ textarea.form_input {
         0 1px 0 rgba(0, 0, 0, 0.08);
 }
 
+/* 時間制御 */
+.time-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.time-box {
+    width: 80px;
+    height: 56px;
+    border: 1px solid #cfd6df;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.time-colon {
+    font-size: 32px;
+    font-weight: 700;
+}
+
 /* result画面 */
 .result-character {
     width: 100%;
