@@ -12,7 +12,7 @@ body {
 }
 
 .splash {
-    min-height: 100vh;
+    min-height: 100svh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,7 +51,7 @@ body {
 
 .intro {
     position: relative;
-    min-height: 100vh;
+    min-height: 100svh;
     overflow: hidden;
 }
 
@@ -83,7 +83,7 @@ body {
 }
 
 .intro-character img {
-    height: 100vh;
+    height: 100svh;
     width: auto;
 
 }
@@ -382,7 +382,7 @@ body {
 /* 大会登録ページ */
 .race-page {
     margin: 0;
-    min-height: 100vh;
+    min-height: 100svh;
     font-family: sans-serif;
     background: linear-gradient(to bottom,
             #eaf5ff 0%,
@@ -391,7 +391,7 @@ body {
 
 .race-wrap {
     max-width: 900px;
-    min-height: 100vh;
+    min-height: 100svh;
     margin: 0 auto;
     padding: 24px;
     display: flex;
@@ -890,7 +890,7 @@ textarea.form_input {
 
 /* 小説ページ------------------------------ */
 .novel-page {
-    min-height: 100vh;
+    min-height: 100svh;
     background: #1f1b17;
     display: flex;
     justify-content: center;
@@ -1482,7 +1482,7 @@ textarea.form_input {
 
 
 .name-page {
-    min-height: 100vh;
+    min-height: 100svh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1744,7 +1744,7 @@ textarea.form_input {
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100vh;
+        height: 100svh;
 
         background: rgba(20, 40, 80, 0.65);
 
