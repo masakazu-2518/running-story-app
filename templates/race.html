@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大会登録</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="race_title">
+
+    <div class="race-wrap">
+
+        <div class="race-panel">
+
+            <div class="race-form-area">
+                <h1 class="race_title">次のレースを設定</h1>
+
+                <form method="POST" action="/race" class="race-form">
+                    <input type="text" name="race_name" value="{{ race_name }}" placeholder="大会名">
+                    <input type="date" name="race_date" value="{{ race_date }}">
+                    <button type="submit">保存</button>
+                </form>
+            </div>
+
+            <div class="race-character">
+                <p class="race-char-title">次の戦場は？</p>
+                <img src="/static/img/manager-02.png" alt="キャラ">
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

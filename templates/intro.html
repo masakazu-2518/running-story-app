@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>intro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <main class="intro">
+        <div class="intro-bg">
+            <img src="/static/img/bg_scene_meadow_v1.png" alt="">
+        </div>
+
+        <div class="intro-character">
+            <img id="kanata" src="/static/img/manager_normal.png" alt="">
+        </div>
+        <div class="race-info">
+            {% if race and race.get("name") and race.get("date") %}
+            <div class="race-title">{{ race.name }}</div>
+            <p class="race-days">{{ days_text }}</p>
+            {% else %}
+            <div class="race-title">現在、出場予定の大会はありません</div>
+            {% endif %}
+        </div>
+        <div class="intro-text">
+            <div class="intro-head">
+                <p class="intro-name">カナタ</p>
+                <button type="button" class="menu-toggle" id="menuToggle">☰</button>
+                <button id="talkBtn" type="button">会話モード</button>
+                <a href="/name" class="user-btn">ユーザー設定</a>
+                <a href="/race" class="race-btn">レース設定</a>
+            </div>
+            <!-- 会話エリア -->
+            <!-- 会話エリア -->
+            <div id="talkArea" style="display:none;">
+                <div id="talkSelect">
+                    <p class="talk-question">何について話す？</p>
+
+                    <button type="button" class="topic" data-topic="reason">走る理由</button>
+                    <button type="button" class="topic" data-topic="condition">体調</button>
+                    <button type="button" class="topic" data-topic="why">ここに来る理由</button>
+                </div>
+
+                <div id="talkChoices" style="display:none;">
+                    <p class="talk-question" id="subQuestion"></p>
+
+                    <button type="button" class="choice" data-value="speed">速くなるため</button>
+                    <button type="button" class="choice" data-value="continue">続けるため</button>
+                    <button type="button" class="choice" data-value="fun">楽しむため</button>
+                </div>
+            </div>
+
+            <div id="typing">
+                <p class="line"></p>
+                <p class="line"></p>
+                <p class="line"></p>
+            </div>
+
+            <div class="intro-menu" id="introMenu">
+                <a href="/input" class="menu-btn primary">スタート</a>
+                <a href="/novel" class="menu-btn">これまでの軌跡</a>
+            </div>
+        </div>
+
+        <div class="talk-overlay" id="talkOverlay">
+            <div class="talk-panel">
+                <button class="talk-topic-btn" data-topic="reason">走る理由</button>
+                <button class="talk-topic-btn" data-topic="condition">体調</button>
+                <button class="talk-topic-btn" data-topic="why">ここに来る理由</button>
+            </div>
+        </div>
+
+        <div class="menu-overlay" id="menuOverlay">
+            <div class="menu-panel">
+                <button id="menuTalk">会話モード</button>
+                <a href="/name" class="menu-link">ユーザー設定</a>
+                <a href="/race" class="menu-link">レース設定</a>
+            </div>
+    </main>
+    <script>
+        window.userName = "{{ user_name }}";
+    </script>
+    <script src="/static/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>起動中</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <main class="splash">
+        <div class="splash-inner">
+            <img src="/static/img/splash01.png" alt="スプラッシュ画像" class="splash-characters">
+        </div>
+
+
+    </main>
+
+    <script>
+        setTimeout(() => {
+            localStorage.setItem("lastOpenedAt", Date.now());
+            window.location.href = "{{ next_url }}";
+        }, 4000);
+    </script>
+</body>
+
+</html>

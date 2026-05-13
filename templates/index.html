@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ランニング記録</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <main class="page page--input">
+        <h1 class="page__title">記録入力</h1>
+        <form class="form" action="/result" method="post">
+            <div class="form__group">
+                <label class="form__label" for="distance">距離(km)</label>
+                <input class="form__input" type="number" id="distance" name="distance" step="0.1" min="0.1" required>
+            </div>
+            <div class="form__group">
+                <label class="form__label" for="time">タイム</label>
+                <input class="form_input" type="time" id="time" name="time" step="1" required>
+                <small class="time-note">例）01:00:00 = 1時間</small>
+            </div>
+            <div class="form__group">
+                <label class="form__label" for="time_of_day">時間帯</label>
+                <select class="form__select" id="time_of_day" name="time_of_day" required>
+                    <option value="朝">朝</option>
+                    <option value="昼">昼</option>
+                    <option value="夕方">夕方</option>
+                    <option value="夜">夜</option>
+                </select>
+            </div>
+            <label class="form__label" for="training_type">練習内容</label>
+            <select class="form_select" id="training_type" name="training_type">
+                <option value="ジョグ">ジョグ</option>
+                <option value="ペース走">ペース走</option>
+                <option value="インターバル">インターバル</option>
+                <option value="ロング走">ロング走</option>
+                <option value="レース">レース</option>
+                <option value="その他">その他</option>
+            </select>
+
+            <label class="form__label" for="strength_type">補助項目</label>
+            <select class="form_select" id="strength_type" name="strength_type">
+                <option value="なし">なし</option>
+                <option value="体幹">体幹</option>
+                <option value="筋トレ">筋トレ</option>
+                <option value="ストレッチ">ストレッチ</option>
+                <option value="その他">その他</option>
+            </select>
+
+            <label class="form__label" for="detail_note">記事事項</label>
+            <textarea class="form_input" id="detail_note" name="detail_note" rows="4"
+                placeholder="例：スクワット100kg×3、プランク1分×3"></textarea>
+            <div class="button-group">
+                <button class="button button--main" type="submit">記録する</button>
+                <a href="/logs" class="button button--sub">記録一覧</a>
+            </div>
+            <a href="/intro" class="back-intro">はじめに戻る</a>
+        </form>
+    </main>
+    <script src="/static/script.js"></script>
+</body>
+
+</html>

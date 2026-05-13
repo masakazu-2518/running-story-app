@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分析結果</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <main class="page">
+        <h1 class="page__title">分析結果</h1>
+
+        <section class="result">
+            <div class="result-summary">
+                <p class="result__item"><span class="result__label">距離:</span>{{ distance }}km</p>
+                {% if show_pb %}
+                <p class="result__item"><span class="result__label">PB:</span>{{ pb_message }}</p>
+                {% endif %}
+                <p class="result__item"><span class="result__label">平均ペース:</span>{% set minutes = pace|int %}
+                    {% set seconds = ((pace - minutes) * 60)|round(0)|int %}
+                    {{ minutes }}:{{ "%02d"|format(seconds) }} /km
+                </p>
+            </div>
+
+            <div class="result-character">
+                <img src="{{ url_for('static', filename=character_img) }}" alt="character">
+            </div>
+
+            <p class="result-comment"><span class="result__label">カナタ:</span>{{ comment }}</p>
+            <div>
+                <p class="result__label">物語</p>
+                <p class="result__story">{{ story }}</p>
+            </div>
+
+            <div class="result-actions">
+                <a href="/input" class="button button--main">入力に戻る</a>
+                <a href="/logs" class="button button--sub">記録一覧</a>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

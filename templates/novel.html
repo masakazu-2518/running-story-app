@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>練習日誌</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <main class="novel-page">
+        <section class="novel-box">
+            <h1 class="novel-title">練習日誌</h1>
+
+            <button type="button" class="novel-open">話数を選ぶ</button>
+            <p class="novel-current">📖現在表示中：{{ current_label }}</p>
+            <div class="novel-drawer">
+                <div class="novel-drawer-inner">
+                    <button type="button" class="novel-drawer-close">×</button>
+
+                    <div class="novel-nav">
+                        {% for link in page_links %}
+                        <a href="/novel?page={{ link.page }}"
+                            class="novel-page-btn {% if link.page == current_page %}is-current{% endif %}">
+                            {{ link.label }}
+                        </a>
+                        {% endfor %}
+
+                        <a href="/novel?page={{ last_page }}"
+                            class="novel-page-btn latest-btn {% if current_page == last_page %}is-current{% endif %}">
+                            最新話
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <p class="novel-paragraph">{{ novel_text|replace('\n', '<br>')|safe }}</p>
+
+            <a href="/intro" class="novel-back">戻る</a>
+            <a href="#" class="novel-top">頁上へ↑</a>
+        </section>
+    </main>
+
+    <script src="/static/script.js"></script>
+</body>
+
+</html>

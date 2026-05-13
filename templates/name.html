@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>名前設定</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <main class="name-page">
+        <section class="name-card">
+            <h1 class="name-title">名前を入力</h1>
+            <p class="name-lead">呼び名を設定できます。</p>
+
+            <form action="/save_name" method="post" class="name-form">
+                <input type="text" name="user_name" class="name-input" value="{{ user_name }}" placeholder="名前を入力">
+                <button type="submit" class="name-submit">保存</button>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>

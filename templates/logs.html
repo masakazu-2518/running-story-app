@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>記録一覧</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <main class="page">
+        <h1 class="page__title">記録一覧</h1>
+        <div class="pb-header">
+            <h2 class="pb-title">{{ user_name }}PB</h2>
+            <p class="pb-note">
+                この欄には、1km・3km・5km・10km・ハーフ・フルのPBが表示されます。
+            </p>
+        </div>
+        <div class="pb-card">
+            {% for pb in pbs %}
+            {% set total_seconds = pb[1]|int %}
+            {% set hours = total_seconds // 3600 %}
+            {% set minutes = (total_seconds % 3600) // 60 %}
+            {% set seconds = total_seconds % 60 %}
+
+            <p class="result_item">
+                <span>
+                    {% if pb[0] == 21 %}
+                    ハーフ
+                    {% elif pb[0] == 42 %}
+                    フル
+                    {% else %}
+                    {{ pb[0]|int }}km
+                    {% endif %}
+                </span>
+
+                <!-- タイム -->
+                <span>
+                    {% if hours > 0 %}
+                    {{ "%02d"|format(hours) }}:{{ "%02d"|format(minutes) }}:{{ "%02d"|format(seconds) }}
+                    {% else %}
+                    {{ minutes }}:{{ "%02d"|format(seconds) }}
+                    {% endif %}
+                </span>
+            </p>
+            {% endfor %}
+        </div>
+        <h2 class="result__label">統計</h2>
+        <div class="stats-card">
+            <div class="stats-card__text">
+                <div class="meter meter-{{ stage }}">
+                    <div class="meter-bar color-{{ color_index }}" data-width="{{ distance_rate }}"></div>
+                </div>
+
+                <div class="meter-scale">
+                    <span>0</span>
+                    <span>100</span>
+                    <span>200</span>
+                    <span>300</span>
+                    <span>400</span>
+                    <span>500</span>
+                </div>
+                {% set avg_minutes = avg_pace|int %}
+                {% set avg_seconds = ((avg_pace - avg_minutes) * 60)|round|int %}
+                <p class="result_item">
+                    平均ペース：{{ avg_minutes }}:{{ "%02d"|format(avg_seconds) }} /km
+                </p>
+                <p class="result_item">現在：{{ total_distance|int }}km（{{ lap_count }}周目）</p>
+                <p class="result_item">
+                    称号：<span class="{{ title_class }}">{{ title }}</span>
+                </p>
+                <span class="meter-text">千里の道も一歩から</span>
+            </div>
+
+            <div class="stats-card__image">
+                <img src="{{ url_for('static', filename='img/manager_01.png') }}" alt="manager">
+            </div>
+        </div>
+        <hr class="divider">
+        {% for record in records %}
+        <section class="result" style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #dbe3ec;">
+
+
+            <p class="result_item"> <span class="result_label">日付:</span>{{ record["created_at"] }}</p>
+
+            <p class="result_item"><span class="result_label">距離:</span>{{ record["distance"]|int }}km</p>
+
+            {% set total_seconds = record["time"]|int %}
+            {% set hours = total_seconds // 3600 %}
+            {% set minutes = (total_seconds % 3600) // 60 %}
+            {% set seconds = total_seconds % 60 %}
+
+            <p class="result_item">
+                <span class="result_label">タイム:</span>
+                {{ "%02d"|format(hours) }}:{{ "%02d"|format(minutes) }}:{{ "%02d"|format(seconds) }}
+            </p>
+
+            <p class="result_item">
+                <span class="result_label">平均ペース:</span>
+                {% set pace_seconds = (record["time"] / record["distance"])|round|int %}
+                {% set pace_minutes = pace_seconds // 60 %}
+                {% set pace_remain_seconds = pace_seconds % 60 %}
+                {{ pace_minutes }}:{{ "%02d"|format(pace_remain_seconds) }}/km
+            </p>
+            <p class="result_item"><span class="result_label">練習内容:</span>{{ record["training_type"] }}</p>
+
+            <p class="result_item"><span class="result_label">補強項目:</span>{{ record["strength_type"] }}</p>
+
+            <p class="result_item"><span class="result_label">記載事項:</span>{{ record["detail_note"] }}</p>
+
+            <div class="record-actions">
+                <a class="action-button action-button--edit" href="/edit/{{ record[0] }}">編集</a>
+                <form action="/delete/{{ record[0] }}" method="post" class="action-form js-delete-form">
+                    <button type="submit" class="action-button action-button--delete">削除</button>
+                </form>
+            </div>
+        </section>
+        {% endfor %}
+
+        <a class="back-fixed" href="/input">入力に戻る</a>
+    </main>
+    <script src="/static/script.js"></script>
+</body>
+
+</html>
