@@ -2067,7 +2067,11 @@ textarea.form_input {
     }
 
     .novel-top {
-        bottom: 100px;
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        bottom: auto;
+        z-index: 30;
     }
 
     /* ----------------------------------- */
