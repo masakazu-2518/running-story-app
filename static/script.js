@@ -148,7 +148,19 @@ document.addEventListener("DOMContentLoaded", function () {
             hour.reportValidity();
             return;
         }
+        const distanceInput = document.getElementById("distance");
+        const distance = Number(distanceInput.value);
 
+        if (distance > 0) {
+            const pace = totalSeconds / distance;
+
+            if (pace < 120) {
+                e.preventDefault();
+                minute.setCustomValidity("タイムが速すぎます");
+                minute.reportValidity();
+                return;
+            }
+        }
         hour.setCustomValidity("");
 
         hiddenTime.value =
@@ -160,6 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
     [hour, minute, second].forEach((input) => {
         input.addEventListener("input", function () {
             hour.setCustomValidity("");
+            minute.setCustomValidity("");
         });
     });
 });
