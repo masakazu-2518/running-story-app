@@ -1954,6 +1954,7 @@ textarea.form_input {
     }
 
     /* index画面--------------------------- */
+    /* index画面--------------------------- */
     html,
     body {
         margin: 0;
@@ -1965,74 +1966,97 @@ textarea.form_input {
         width: 100%;
         max-width: none;
         margin: 0;
-        padding: 16px 14px 20px;
         border: none;
         border-radius: 0;
         box-shadow: none;
     }
 
-    .page--input {
-        padding: 12px 14px;
-        justify-content: flex-start;
+    .page.page--input {
+        min-height: 100svh;
+        padding: 28px 24px 170px;
+        overflow: visible;
     }
 
-    .page-title {
-        font-size: 20px;
-        margin-bottom: 8px;
+    .page__title {
+        margin: 0 0 24px;
+        font-size: 36px;
+        line-height: 1.2;
     }
 
     .form {
-        gap: 8px;
+        display: grid;
+        gap: 18px;
     }
 
     .form__group {
-        gap: 4px;
+        display: grid;
+        gap: 8px;
     }
 
-    .form__label,
-    .form_label {
-        font-size: 13px;
+    .form__label {
+        font-size: 20px;
+        margin: 0;
     }
 
     .form__input,
     .form__select,
-    .form_select,
-    .form_input,
-    textarea.form_input,
-    input[type="number"] {
-        height: 40px;
-        font-size: 15px;
-        padding: 0 10px;
+    .form_select {
+        width: 100%;
+        height: 48px;
+        font-size: 16px;
     }
 
-    textarea.form_input {
-        height: 52px;
-        padding-top: 10px;
+    .time-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
     .time-box {
-        width: 64px;
+        width: 58px;
         height: 44px;
-        font-size: 26px;
+        font-size: 22px;
+        font-weight: 600;
     }
 
-    .time-note {
-        font-size: 11px;
+    .time-colon {
+        font-size: 22px;
+        font-weight: 500;
+    }
+
+    textarea.form_input {
+        height: 110px;
+        resize: none;
     }
 
     .button-group {
-        gap: 8px;
-        margin-top: 4px;
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        bottom: 58px;
+        z-index: 30;
+
+        display: flex;
+        gap: 10px;
     }
 
     .button-group .button {
-        height: 44px;
-        font-size: 14px;
+        flex: 1;
+        min-width: 0;
+        height: 48px;
+        font-size: 15px;
     }
 
     .back-intro {
-        margin-top: 4px;
-        font-size: 11px;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 28px;
+        z-index: 30;
+
+        margin: 0;
+        text-align: center;
+        font-size: 12px;
     }
 
     /* log画面------------------------------------- */
