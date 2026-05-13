@@ -170,9 +170,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     [hour, minute, second].forEach((input) => {
-        input.addEventListener("input", function () {
-            hour.setCustomValidity("");
-            minute.setCustomValidity("");
+        input.addEventListener("blur", function () {
+            if (input.value.length === 1) {
+                input.value = input.value.padStart(2, "0");
+            }
         });
     });
 });
