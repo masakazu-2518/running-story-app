@@ -127,7 +127,8 @@ def result():
         time = h * 3600 + m * 60 + s
     except:
         return redirect("/input")
-
+    if time <= 0:
+        return redirect("/input")
     distance = round(float(request.form["distance"]), 1)
     time_of_day = request.form["time_of_day"]
     training_type = request.form.get("training_type")
@@ -463,14 +464,15 @@ def edit_record(record_id):
 def update_record(record_id):
     distance = float(request.form["distance"])
     time_str = request.form["time"]
-    parts = list(map(int, time_str.split(":")))
 
-    if len(parts) == 2:
-        h, m = parts
-        s = 0
-    else:
-        h, m, s = parts
-    time = h * 3600 + m * 60 + s
+    try:
+        h, m, s = map(int, time_str.split(":"))
+        time = h * 3600 + m * 60 + s
+    except:
+        return redirect(f"/edit/{record_id}")
+
+    if time <= 0:
+        return redirect(f"/edit/{record_id}")
     time_of_day = request.form["time_of_day"]
     user_name = get_user_name()
 
@@ -874,9 +876,6 @@ def name_page():
 @app.route("/save_name", methods=["POST"])
 def save_name():
     user_name = request.form["user_name"].strip()
-
-    if not user_name:
-        user_name = "名無し"
 
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()

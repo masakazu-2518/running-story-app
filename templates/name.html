@@ -15,7 +15,8 @@
             <p class="name-lead">呼び名を設定できます。</p>
 
             <form action="/save_name" method="post" class="name-form">
-                <input type="text" name="user_name" class="name-input" value="{{ user_name }}" placeholder="名前を入力">
+                <input type="text" name="user_name" class="name-input" value="{{ user_name }}" placeholder="名前を入力"
+                    required>
                 <button type="submit" class="name-submit">保存</button>
             </form>
         </section>

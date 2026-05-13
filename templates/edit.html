@@ -15,6 +15,11 @@
 
             <form class="form" action="/update/{{ record['id'] }}" method="post">
                 <div class="form_group">
+                    <label class="form__label" for="distance">距離(km)</label>
+                    <input class="form_input" type="number" id="distance" name="distance" step="0.1" min="0.1"
+                        value="{{ record['distance'] }}" required>
+                </div>
+                <div class="form_group">
                     <label class="form__label">タイム</label>
 
                     <div class="time-wrap">
