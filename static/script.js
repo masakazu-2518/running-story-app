@@ -122,27 +122,45 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // 時間制御
-// 時間制御
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector(".form");
 
     const hour = document.getElementById("hour");
     const minute = document.getElementById("minute");
     const second = document.getElementById("second");
-
     const hiddenTime = document.getElementById("time");
 
-    if (!form) return;
+    if (!form || !hour || !minute || !second || !hiddenTime) return;
 
-    form.addEventListener("submit", function () {
+    form.addEventListener("submit", function (e) {
         const h = hour.value || "00";
         const m = minute.value || "00";
         const s = second.value || "00";
+
+        const totalSeconds =
+            Number(h) * 3600 +
+            Number(m) * 60 +
+            Number(s);
+
+        if (totalSeconds <= 0) {
+            e.preventDefault();
+            hour.setCustomValidity("タイムを入力してください");
+            hour.reportValidity();
+            return;
+        }
+
+        hour.setCustomValidity("");
 
         hiddenTime.value =
             h.padStart(2, "0") + ":" +
             m.padStart(2, "0") + ":" +
             s.padStart(2, "0");
+    });
+
+    [hour, minute, second].forEach((input) => {
+        input.addEventListener("input", function () {
+            hour.setCustomValidity("");
+        });
     });
 });
 

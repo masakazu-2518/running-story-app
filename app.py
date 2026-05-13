@@ -128,9 +128,6 @@ def result():
     except:
         return redirect("/input")
 
-    if time <= 0:
-        return redirect("/input")
-
     distance = round(float(request.form["distance"]), 1)
     time_of_day = request.form["time_of_day"]
     training_type = request.form.get("training_type")
@@ -458,7 +455,7 @@ def edit_record(record_id):
     hours = total_seconds // 3600
     minutes = (total_seconds % 3600) // 60
     seconds = total_seconds % 60
-    time_text = f"{hours:02d}:{minutes:02d}"
+    time_text = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
     return render_template("edit.html", record=record, time_text=time_text)
 
