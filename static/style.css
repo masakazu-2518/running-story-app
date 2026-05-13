@@ -1972,34 +1972,26 @@ textarea.form_input {
     }
 
     .page--input {
-        width: 100%;
-        max-width: none;
-        min-height: 100svh;
+        padding: 12px 14px;
+        justify-content: flex-start;
     }
 
-    .page__title {
-        margin: 0 0 16px;
-        font-size: 40px;
-        line-height: 1.2;
+    .page-title {
+        font-size: 20px;
+        margin-bottom: 8px;
     }
 
     .form {
-        display: grid;
-        gap: 14px;
-        width: 100%;
+        gap: 8px;
     }
 
     .form__group {
-        display: grid;
-        gap: 6px;
-        width: 100%;
-        min-width: 0;
+        gap: 4px;
     }
 
-    .form__label {
-        display: block;
-        margin: 0;
-        font-size: 22px;
+    .form__label,
+    .form_label {
+        font-size: 13px;
     }
 
     .form__input,
@@ -2008,58 +2000,39 @@ textarea.form_input {
     .form_input,
     textarea.form_input,
     input[type="number"] {
-        display: block;
-        width: 100%;
-        max-width: none;
-        min-width: 0;
-        height: 44px;
-        font-size: 16px;
+        height: 40px;
+        font-size: 15px;
+        padding: 0 10px;
     }
 
     textarea.form_input {
-        height: 88px;
-        padding-top: 12px;
-    }
-
-    .time-wrap {
-        display: flex;
-        align-items: center;
-        gap: 10px;
+        height: 52px;
+        padding-top: 10px;
     }
 
     .time-box {
-        width: 76px;
-        height: 54px;
-        font-size: 34px;
-    }
-
-    .time-colon {
-        font-size: 34px;
-        font-weight: 700;
+        width: 64px;
+        height: 44px;
+        font-size: 26px;
     }
 
     .time-note {
-        font-size: 12px;
-        margin-top: 2px;
+        font-size: 11px;
     }
 
     .button-group {
-        display: flex;
-        gap: 10px;
+        gap: 8px;
+        margin-top: 4px;
     }
 
     .button-group .button {
-        flex: 1;
-        min-width: 0;
-        height: 48px;
-        font-size: 15px;
+        height: 44px;
+        font-size: 14px;
     }
 
     .back-intro {
-        display: block;
-        margin-top: 10px;
-        text-align: center;
-        font-size: 12px;
+        margin-top: 4px;
+        font-size: 11px;
     }
 
     /* log画面------------------------------------- */
