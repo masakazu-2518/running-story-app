@@ -15,15 +15,26 @@
 
             <form class="form" action="/update/{{ record['id'] }}" method="post">
                 <div class="form_group">
-                    <label class="form__label" for="distance">距離(km)</label>
-                    <input class="form_input" type="number" id="distance" name="distance" step="0.1"
-                        value="{{ record['distance'] }}" required>
-                </div>
+                    <label class="form__label">タイム</label>
 
-                <div class="form_group">
-                    <label class="form__label" for="time">タイム</label>
-                    <input class="form_input" type="text" id="time" name="time" value="{{ time_text }}"
-                        inputmode="numeric" placeholder="例：01:00:00" required>
+                    <div class="time-wrap">
+
+                        <input class="time-box" type="text" id="hour" inputmode="numeric" maxlength="2" placeholder="00"
+                            value="{{ time_text.split(':')[0] }}">
+
+                        <span class="time-colon">:</span>
+
+                        <input class="time-box" type="text" id="minute" inputmode="numeric" maxlength="2"
+                            placeholder="00" value="{{ time_text.split(':')[1] }}">
+
+                        <span class="time-colon">:</span>
+
+                        <input class="time-box" type="text" id="second" inputmode="numeric" maxlength="2"
+                            placeholder="00" value="00">
+
+                        <input type="hidden" id="time" name="time">
+
+                    </div>
                 </div>
 
                 <div class="form_group">

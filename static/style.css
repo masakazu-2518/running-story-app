@@ -1977,9 +1977,9 @@ textarea.form_input {
         min-height: 100svh;
     }
 
-    .page-title {
+    .page__title {
         margin: 0 0 16px;
-        font-size: 24px;
+        font-size: 40px;
         line-height: 1.2;
     }
 
@@ -1989,23 +1989,24 @@ textarea.form_input {
         width: 100%;
     }
 
-    .form_group {
+    .form__group {
         display: grid;
         gap: 6px;
         width: 100%;
         min-width: 0;
     }
 
-    .form_label {
+    .form__label {
         display: block;
         margin: 0;
-        font-size: 14px;
+        font-size: 22px;
     }
 
-    .form_input,
+    .form__input,
+    .form__select,
     .form_select,
+    .form_input,
     textarea.form_input,
-    input[type="time"],
     input[type="number"] {
         display: block;
         width: 100%;
@@ -2018,6 +2019,23 @@ textarea.form_input {
     textarea.form_input {
         height: 88px;
         padding-top: 12px;
+    }
+
+    .time-wrap {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .time-box {
+        width: 76px;
+        height: 54px;
+        font-size: 34px;
+    }
+
+    .time-colon {
+        font-size: 34px;
+        font-weight: 700;
     }
 
     .time-note {
