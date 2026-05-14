@@ -38,6 +38,8 @@ CREATE TABLE IF NOT EXISTS settings (
     conn.commit()
     conn.close()
 
+init_db()
+
 def get_user_name():
     with get_db() as conn:
         cur = conn.cursor()
@@ -935,5 +937,4 @@ def race():
 import os
 
 if __name__ == "__main__":
-    init_db()
     app.run(debug=True, host="127.0.0.1", port=5000)
