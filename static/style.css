@@ -1492,6 +1492,11 @@ textarea.form_input {
     font-size: 16px;
 }
 
+.form_select,
+.form__select {
+    color: #222;
+}
+
 textarea.form_input {
     resize: vertical;
 }
