@@ -253,46 +253,46 @@ def result():
 
 # PB更新（最強）
     if distance in pb_targets and pb is None:
-        character_img = "img/manager_happy.png"
+        character_img = "img/manager_happy.webp"
         comment = "これから始まりだ。"
 
     elif distance in pb_targets and time < pb:
-        character_img = "img/manager_happy.png"
+        character_img = "img/manager_happy.webp"
         name_prefix = f"{user_name}。 " if user_name else ""
         comment = f"{name_prefix}自己ベスト更新だ。よく頑張った。"
 
 
 # 神ラン（長距離＆速い）
     elif distance >= 15 and pace <= 3.5:
-        character_img = "img/manager_win.png"
+        character_img = "img/manager_win.webp"
 
 # かなり良い
     elif distance >= 10 and pace <= 4.0:
-        character_img = "img/manager_smile.png"
+        character_img = "img/manager_smile.webp"
 
 # 安定
     elif distance >= 5 and pace <= 5.0:
-        character_img = "img/manager_confident.png"
+        character_img = "img/manager_confident.webp"
 
 # 普通
     elif pace <= 6.0:
-        character_img = "img/manager_normal.png"
+        character_img = "img/manager_normal.webp"
 
 # ちょいキツい
     elif pace <= 7.0:
-        character_img = "img/manager_worried.png"
+        character_img = "img/manager_worried.webp"
 
 # ダレてる
     elif pace <= 7.5:
-        character_img = "img/manager_annoyed.png"
+        character_img = "img/manager_annoyed.webp"
 
 # きつすぎ
     elif pace <= 8:
-        character_img = "img/manager_contempt.png"
+        character_img = "img/manager_contempt.webp"
 
 # 終わってる（回復レベル）
     else:
-        character_img = "img/manager_disgust.png"
+        character_img = "img/manager_disgust.webp"
         comment = "…………………………………………………………。"
 
     return render_template(

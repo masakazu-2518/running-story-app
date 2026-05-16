@@ -350,7 +350,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (topic === "why") {
                 showMessage(
                     "ここに来る理由か。\nお前は前に進むために来ている。\n十分だ。",
-                    "/static/img/manager_normal.png"
+                    "/static/img/manager_normal.webp"
                 );
                 return;
             }
@@ -382,39 +382,39 @@ document.addEventListener("DOMContentLoaded", () => {
             const topic = talkChoices.dataset.topic;
 
             let message = "";
-            let imagePath = "/static/img/manager_normal.png";
+            let imagePath = "/static/img/manager_normal.webp";
 
             if (topic === "reason") {
                 if (value === "speed") {
                     message = "速くなるためか。\nいいな。\nその覚悟は嫌いじゃない。";
-                    imagePath = "/static/img/manager_confident.png";
+                    imagePath = "/static/img/manager_confident.webp";
                 }
 
                 if (value === "continue") {
                     message = "続けるために走るのも立派だ。\n積み上げは裏切らない。";
-                    imagePath = "/static/img/manager_normal.png";
+                    imagePath = "/static/img/manager_normal.webp";
                 }
 
                 if (value === "fun") {
                     message = "楽しむために走る。\nそれを忘れるな。\nその気持ちが、お前を強くする。";
-                    imagePath = "/static/img/manager_happy.png";
+                    imagePath = "/static/img/manager_happy.webp";
                 }
             }
 
             if (topic === "condition") {
                 if (value === "speed") {
                     message = "今日は攻められそうか。\nだが無理はするな。\n冷静に行け。";
-                    imagePath = "/static/img/manager_confident.png";
+                    imagePath = "/static/img/manager_confident.webp";
                 }
 
                 if (value === "continue") {
                     message = "普通で十分だ。\nやるべきことをやればいい。";
-                    imagePath = "/static/img/manager_normal.png";
+                    imagePath = "/static/img/manager_normal.webp";
                 }
 
                 if (value === "fun") {
                     message = "少し重い日もある。\n今日は大事にしろ。\nその感覚は武器になる。";
-                    imagePath = "/static/img/manager_happy.png";
+                    imagePath = "/static/img/manager_happy.webp";
                 }
             }
 
