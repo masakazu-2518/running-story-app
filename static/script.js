@@ -157,12 +157,12 @@ function step(type, delta) {
 
 
     el.addEventListener('focus', () => {
-        el.textContent = '';  // ← 空にする
-        const range = document.createRange();
-        range.selectNodeContents(el);
-        const sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
+        el.textContent = '';
+        // サジェストを無効化
+        el.setAttribute('autocomplete', 'off');
+        el.setAttribute('autocorrect', 'off');
+        el.setAttribute('autocapitalize', 'off');
+        el.setAttribute('spellcheck', 'false');
     });
 
     // 全角を半角にする

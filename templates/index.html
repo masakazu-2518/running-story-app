@@ -11,7 +11,7 @@
 <body>
     <main class="page page--input">
         <h1 class="page__title">記録入力</h1>
-        <form class="form" action="/result" method="post">
+        <form class="form" action="/result" method="post" autocomplete="off">
             <div class="form__group">
                 <label class="form__label" for="distance">距離(km)</label>
                 <input class="form__input" type="number" id="distance" name="distance" step="0.1" min="0.1" required>
@@ -22,21 +22,21 @@
                 <div class="time-wrap">
                     <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
                         <button type="button" class="drum-btn" onclick="step('h',1)">▲</button>
-                        <div class="time-box" id="hDisp">00</div>
+                        <div class="time-box" id="hDisp" autocomplete="off" data-lpignore="true">00</div>
                         <button type="button" class="drum-btn" onclick="step('h',-1)">▼</button>
                         <span class="time-unit">時</span>
                     </div>
                     <span class="time-colon">:</span>
                     <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
                         <button type="button" class="drum-btn" onclick="step('m',1)">▲</button>
-                        <div class="time-box" id="mDisp">00</div>
+                        <div class="time-box" id="mDisp" autocomplete="off" data-lpignore="true">00</div>
                         <button type="button" class="drum-btn" onclick="step('m',-1)">▼</button>
                         <span class="time-unit">分</span>
                     </div>
                     <span class="time-colon">:</span>
                     <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
                         <button type="button" class="drum-btn" onclick="step('s',1)">▲</button>
-                        <div class="time-box" id="sDisp">00</div>
+                        <div class="time-box" id="sDisp" autocomplete="off" data-lpignore="true">00</div>
                         <button type="button" class="drum-btn" onclick="step('s',-1)">▼</button>
                         <span class="time-unit">秒</span>
                     </div>
