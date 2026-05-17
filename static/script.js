@@ -147,25 +147,44 @@ function step(type, delta) {
     updateDisp();
 }
 
-// ボックスをタップしたら直接入力できるようにする
+// タイムのボックス
 ['h', 'm', 's'].forEach(type => {
     const el = document.getElementById(type + 'Disp');
     if (!el) return;
-    el.addEventListener('click', () => {
-        const input = prompt(
-            type === 'h' ? '時間を入力 (0-23)' :
-                type === 'm' ? '分を入力 (0-59)' : '秒を入力 (0-59)'
-        );
-        if (input === null) return;
-        // 全角数字→半角に変換
-        const converted = input.replace(/[０-９]/g, s =>
+
+    el.setAttribute('contenteditable', 'true');
+    el.setAttribute('inputmode', 'numeric');
+
+
+    el.addEventListener('focus', () => {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+    });
+
+    // 全角を半角にする
+    el.addEventListener('input', () => {
+        const converted = el.textContent.replace(/[０-９]/g, s =>
             String.fromCharCode(s.charCodeAt(0) - 0xFEE0)
         );
-
-        const v = parseInt(converted);
+        const v = parseInt(converted.replace(/[^0-9]/g, ''));
         if (!isNaN(v)) {
             timeVals[type] = Math.min(Math.max(0, v), timeMax[type]);
-            updateDisp();
+        }
+    });
+
+
+    el.addEventListener('blur', () => {
+        el.textContent = pad(timeVals[type]);
+    });
+
+
+    el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            el.blur();
         }
     });
 });
