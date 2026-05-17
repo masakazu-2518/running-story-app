@@ -157,6 +157,7 @@ function step(type, delta) {
 
 
     el.addEventListener('focus', () => {
+        el.textContent = '';  // ← 空にする
         const range = document.createRange();
         range.selectNodeContents(el);
         const sel = window.getSelection();
@@ -171,12 +172,30 @@ function step(type, delta) {
         );
         const v = parseInt(converted.replace(/[^0-9]/g, ''));
         if (!isNaN(v)) {
-            timeVals[type] = Math.min(Math.max(0, v), timeMax[type]);
+            if (v > timeMax[type]) {
+                el.style.borderColor = '#e53935';
+                el.style.boxShadow = '0 0 0 4px rgba(229,57,53,0.15)';
+            } else {
+                el.style.borderColor = '';
+                el.style.boxShadow = '';
+                timeVals[type] = v;
+            }
         }
     });
 
 
     el.addEventListener('blur', () => {
+        const converted = el.textContent.replace(/[０-９]/g, s =>
+            String.fromCharCode(s.charCodeAt(0) - 0xFEE0)
+        );
+        const v = parseInt(converted.replace(/[^0-9]/g, ''));
+        if (!isNaN(v) && v > timeMax[type]) {
+            el.style.borderColor = '#e53935';
+            el.style.boxShadow = '0 0 0 4px rgba(229,57,53,0.15)';
+            return;
+        }
+        el.style.borderColor = '';
+        el.style.boxShadow = '';
         el.textContent = pad(timeVals[type]);
     });
 
@@ -184,12 +203,28 @@ function step(type, delta) {
     el.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
+            const converted = el.textContent.replace(/[０-９]/g, s =>
+                String.fromCharCode(s.charCodeAt(0) - 0xFEE0)
+            );
+            const v = parseInt(converted.replace(/[^0-9]/g, ''));
+            if (!isNaN(v) && v > timeMax[type]) {
+                alert(`${type === 'h' ? '時間は0〜23' : '分・秒は0〜59'}で入力してください`);
+                el.style.borderColor = '#e53935';
+                el.style.boxShadow = '0 0 0 4px rgba(229,57,53,0.15)';
+                return; // 次の枠に進まない
+            }
+            if (!isNaN(v)) {
+                timeVals[type] = Math.min(Math.max(0, v), timeMax[type]);
+            }
+            el.style.borderColor = '';
+            el.style.boxShadow = '';
+            el.textContent = pad(timeVals[type]);
+
             if (type === 'h') {
                 document.getElementById('mDisp').focus();
             } else if (type === 'm') {
                 document.getElementById('sDisp').focus();
             } else {
-                // 秒でEnterを押したらフォームを送信
                 el.blur();
                 const form = document.querySelector('.form');
                 if (form) form.requestSubmit();
