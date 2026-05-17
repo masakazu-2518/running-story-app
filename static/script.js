@@ -133,6 +133,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!form || !hour || !minute || !second || !hiddenTime) return;
 
     form.addEventListener("submit", function (e) {
+        hour.setCustomValidity("");
+        minute.setCustomValidity("");
+        second.setCustomValidity("");
+
         const h = hour.value || "00";
         const m = minute.value || "00";
         const s = second.value || "00";
