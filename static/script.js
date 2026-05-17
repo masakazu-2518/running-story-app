@@ -122,36 +122,54 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // 時間制御
+// ドラムロール入力
+const timeVals = { h: 0, m: 0, s: 0 };
+const timeMax = { h: 23, m: 59, s: 59 };
+
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function updateDisp() {
+    document.getElementById('hDisp').textContent = pad(timeVals.h);
+    document.getElementById('mDisp').textContent = pad(timeVals.m);
+    document.getElementById('sDisp').textContent = pad(timeVals.s);
+}
+
+function step(type, delta) {
+    timeVals[type] = Math.min(Math.max(0, timeVals[type] + delta), timeMax[type]);
+    updateDisp();
+}
+
+// ボックスをタップしたら直接入力できるようにする
+['h', 'm', 's'].forEach(type => {
+    const el = document.getElementById(type + 'Disp');
+    el.addEventListener('click', () => {
+        const input = prompt(
+            type === 'h' ? '時間を入力 (0-23)' :
+                type === 'm' ? '分を入力 (0-59)' : '秒を入力 (0-59)'
+        );
+        if (input === null) return;
+        const v = parseInt(input);
+        if (!isNaN(v)) {
+            timeVals[type] = Math.min(Math.max(0, v), timeMax[type]);
+            updateDisp();
+        }
+    });
+});
+
+// フォームのsubmit処理（既存のものと置き換え）
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector(".form");
-
-    const hour = document.getElementById("hour");
-    const minute = document.getElementById("minute");
-    const second = document.getElementById("second");
-    const hiddenTime = document.getElementById("time");
-
-    if (!form || !hour || !minute || !second || !hiddenTime) return;
+    if (!form) return;
 
     form.addEventListener("submit", function (e) {
-        hour.setCustomValidity("");
-        minute.setCustomValidity("");
-        second.setCustomValidity("");
+        const total = timeVals.h * 3600 + timeVals.m * 60 + timeVals.s;
 
-        const h = hour.value || "00";
-        const m = minute.value || "00";
-        const s = second.value || "00";
-
-        const totalSeconds =
-            Number(h) * 3600 +
-            Number(m) * 60 +
-            Number(s);
-
-        if (totalSeconds <= 0) {
+        if (total <= 0) {
             e.preventDefault();
-            hour.setCustomValidity("タイムを入力してください");
-            hour.reportValidity();
+            alert('タイムを入力してください');
             return;
         }
+
         const distanceInput = document.getElementById("distance");
         const distance = Number(distanceInput.value);
 
@@ -161,45 +179,20 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        const pace = totalSeconds / distance;
-
+        const pace = total / distance;
         if (pace < 120) {
             e.preventDefault();
-            minute.setCustomValidity("タイムが速すぎます");
-            minute.reportValidity();
+            alert('タイムが速すぎます');
             return;
         }
 
-        minute.setCustomValidity("");
-        hour.setCustomValidity("");
-
-        hiddenTime.value =
-            h.padStart(2, "0") + ":" +
-            m.padStart(2, "0") + ":" +
-            s.padStart(2, "0");
+        document.getElementById('time').value =
+            pad(timeVals.h) + ':' + pad(timeVals.m) + ':' + pad(timeVals.s);
     });
-
-    [hour, minute, second].forEach((input) => {
-        input.addEventListener("blur", function () {
-            if (input.value.length === 1) {
-                input.value = input.value.padStart(2, "0");
-            }
-        });
-    });
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    const form = document.querySelector(".form");
-
-    if (!form) return;
 
     form.addEventListener("keydown", function (e) {
         if (e.key !== "Enter") return;
-
-        const tag = document.activeElement.tagName;
-
-        if (tag === "TEXTAREA") return;
-
+        if (document.activeElement.tagName === "TEXTAREA") return;
         e.preventDefault();
         form.requestSubmit();
     });

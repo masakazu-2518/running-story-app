@@ -19,21 +19,30 @@
 
             <div class="form__group">
                 <label class="form__label">タイム</label>
-
                 <div class="time-wrap">
-                    <input class="time-box" type="text" id="hour" inputmode="numeric" maxlength="2" placeholder="00">
-
+                    <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+                        <button type="button" class="drum-btn" onclick="step('h',1)">▲</button>
+                        <div class="time-box" id="hDisp">00</div>
+                        <button type="button" class="drum-btn" onclick="step('h',-1)">▼</button>
+                        <span class="time-unit">時</span>
+                    </div>
                     <span class="time-colon">:</span>
-
-                    <input class="time-box" type="text" id="minute" inputmode="numeric" maxlength="2" placeholder="00">
-
+                    <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+                        <button type="button" class="drum-btn" onclick="step('m',1)">▲</button>
+                        <div class="time-box" id="mDisp">00</div>
+                        <button type="button" class="drum-btn" onclick="step('m',-1)">▼</button>
+                        <span class="time-unit">分</span>
+                    </div>
                     <span class="time-colon">:</span>
-
-                    <input class="time-box" type="text" id="second" inputmode="numeric" maxlength="2" placeholder="00">
-                    <input type="hidden" id="time" name="time">
+                    <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+                        <button type="button" class="drum-btn" onclick="step('s',1)">▲</button>
+                        <div class="time-box" id="sDisp">00</div>
+                        <button type="button" class="drum-btn" onclick="step('s',-1)">▼</button>
+                        <span class="time-unit">秒</span>
+                    </div>
                 </div>
-
-                <small class="time-note">例）1時間10分10秒</small>
+                <input type="hidden" id="time" name="time">
+                <small class="time-note">▲▼で調整、またはボックスをタップして直接入力</small>
             </div>
             <div class="form__group">
                 <label class="form__label" for="time_of_day">時間帯</label>
