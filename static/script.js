@@ -133,6 +133,14 @@ function updateDisp() {
     document.getElementById('mDisp').textContent = pad(timeVals.m);
     document.getElementById('sDisp').textContent = pad(timeVals.s);
 }
+document.addEventListener("DOMContentLoaded", () => {
+    const hEl = document.getElementById('hDisp');
+    const mEl = document.getElementById('mDisp');
+    const sEl = document.getElementById('sDisp');
+    if (hEl) timeVals.h = parseInt(hEl.textContent) || 0;
+    if (mEl) timeVals.m = parseInt(mEl.textContent) || 0;
+    if (sEl) timeVals.s = parseInt(sEl.textContent) || 0;
+});
 
 function step(type, delta) {
     timeVals[type] = Math.min(Math.max(0, timeVals[type] + delta), timeMax[type]);
@@ -142,6 +150,7 @@ function step(type, delta) {
 // ボックスをタップしたら直接入力できるようにする
 ['h', 'm', 's'].forEach(type => {
     const el = document.getElementById(type + 'Disp');
+    if (!el) return;
     el.addEventListener('click', () => {
         const input = prompt(
             type === 'h' ? '時間を入力 (0-23)' :
