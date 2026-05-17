@@ -122,25 +122,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // 時間制御
-// ドラムロール入力
 const timeVals = { h: 0, m: 0, s: 0 };
 const timeMax = { h: 23, m: 59, s: 59 };
 
 function pad(n) { return String(n).padStart(2, '0'); }
-
-function updateDisp() {
-    document.getElementById('hDisp').textContent = pad(timeVals.h);
-    document.getElementById('mDisp').textContent = pad(timeVals.m);
-    document.getElementById('sDisp').textContent = pad(timeVals.s);
-}
-document.addEventListener("DOMContentLoaded", () => {
-    const hEl = document.getElementById('hDisp');
-    const mEl = document.getElementById('mDisp');
-    const sEl = document.getElementById('sDisp');
-    if (hEl) timeVals.h = parseInt(hEl.textContent) || 0;
-    if (mEl) timeVals.m = parseInt(mEl.textContent) || 0;
-    if (sEl) timeVals.s = parseInt(sEl.textContent) || 0;
-});
 
 function step(type, delta) {
     timeVals[type] = Math.min(Math.max(0, timeVals[type] + delta), timeMax[type]);
@@ -149,89 +134,102 @@ function step(type, delta) {
 
 // タイムのボックス
 ['h', 'm', 's'].forEach(type => {
-    const el = document.getElementById(type + 'Disp');
-    if (!el) return;
+    const disp = document.getElementById(type + 'Disp');
+    if (!disp) return;
 
-    el.setAttribute('contenteditable', 'true');
-    el.setAttribute('inputmode', 'numeric');
+    const initVal = parseInt(disp.textContent) || 0;
+    timeVals[type] = Math.min(Math.max(0, initVal), timeMax[type]);
 
 
-    el.addEventListener('focus', () => {
-        el.textContent = '';
-        // サジェストを無効化
-        el.setAttribute('autocomplete', 'off');
-        el.setAttribute('autocorrect', 'off');
-        el.setAttribute('autocapitalize', 'off');
-        el.setAttribute('spellcheck', 'false');
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.inputMode = 'numeric';
+    input.className = 'time-box';
+    input.id = type + 'Disp';
+    input.value = pad(timeVals[type]);
+    input.autocomplete = 'off';
+    input.setAttribute('autocomplete', 'off');
+    input.style.textAlign = 'center';
+    input.style.border = '1px solid #cfd6df';
+    disp.replaceWith(input);
+
+    input.addEventListener('focus', () => {
+        input.value = '';
     });
 
-    // 全角を半角にする
-    el.addEventListener('input', () => {
-        const converted = el.textContent.replace(/[０-９]/g, s =>
+    input.addEventListener('input', () => {
+        const converted = input.value.replace(/[０-９]/g, s =>
             String.fromCharCode(s.charCodeAt(0) - 0xFEE0)
         );
-        const v = parseInt(converted.replace(/[^0-9]/g, ''));
+        const clean = converted.replace(/[^0-9]/g, '');
+        input.value = clean;
+        const v = parseInt(clean);
         if (!isNaN(v)) {
             if (v > timeMax[type]) {
-                el.style.borderColor = '#e53935';
-                el.style.boxShadow = '0 0 0 4px rgba(229,57,53,0.15)';
+                input.style.borderColor = '#e53935';
+                input.style.boxShadow = '0 0 0 4px rgba(229,57,53,0.15)';
             } else {
-                el.style.borderColor = '';
-                el.style.boxShadow = '';
+                input.style.borderColor = '';
+                input.style.boxShadow = '';
                 timeVals[type] = v;
             }
         }
     });
 
-
-    el.addEventListener('blur', () => {
-        const converted = el.textContent.replace(/[０-９]/g, s =>
-            String.fromCharCode(s.charCodeAt(0) - 0xFEE0)
-        );
-        const v = parseInt(converted.replace(/[^0-9]/g, ''));
+    input.addEventListener('blur', () => {
+        const v = parseInt(input.value);
         if (!isNaN(v) && v > timeMax[type]) {
-            el.style.borderColor = '#e53935';
-            el.style.boxShadow = '0 0 0 4px rgba(229,57,53,0.15)';
+            input.style.borderColor = '#e53935';
+            input.style.boxShadow = '0 0 0 4px rgba(229,57,53,0.15)';
             return;
         }
-        el.style.borderColor = '';
-        el.style.boxShadow = '';
-        el.textContent = pad(timeVals[type]);
+        input.style.borderColor = '';
+        input.style.boxShadow = '';
+        input.value = pad(timeVals[type]);
     });
 
-
-    el.addEventListener('keydown', (e) => {
+    input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            const converted = el.textContent.replace(/[０-９]/g, s =>
-                String.fromCharCode(s.charCodeAt(0) - 0xFEE0)
-            );
-            const v = parseInt(converted.replace(/[^0-9]/g, ''));
+            const v = parseInt(input.value);
             if (!isNaN(v) && v > timeMax[type]) {
                 alert(`${type === 'h' ? '時間は0〜23' : '分・秒は0〜59'}で入力してください`);
-                el.style.borderColor = '#e53935';
-                el.style.boxShadow = '0 0 0 4px rgba(229,57,53,0.15)';
-                return; // 次の枠に進まない
+                input.style.borderColor = '#e53935';
+                input.style.boxShadow = '0 0 0 4px rgba(229,57,53,0.15)';
+                return;
             }
             if (!isNaN(v)) {
                 timeVals[type] = Math.min(Math.max(0, v), timeMax[type]);
             }
-            el.style.borderColor = '';
-            el.style.boxShadow = '';
-
+            input.style.borderColor = '';
+            input.style.boxShadow = '';
+            input.value = pad(timeVals[type]);
 
             if (type === 'h') {
                 document.getElementById('mDisp').focus();
             } else if (type === 'm') {
                 document.getElementById('sDisp').focus();
             } else {
-                el.blur();
+                input.blur();
                 const form = document.querySelector('.form');
                 if (form) form.requestSubmit();
             }
         }
     });
 });
+
+// updateDispも修正
+function updateDisp() {
+    ['h', 'm', 's'].forEach(type => {
+        const el = document.getElementById(type + 'Disp');
+        if (!el) return;
+        if (el.tagName === 'INPUT') {
+            el.value = pad(timeVals[type]);
+        } else {
+            el.textContent = pad(timeVals[type]);
+        }
+    });
+}
 
 // フォームのsubmit処理（既存のものと置き換え）
 document.addEventListener("DOMContentLoaded", function () {
