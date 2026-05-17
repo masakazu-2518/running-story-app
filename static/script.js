@@ -148,7 +148,12 @@ function step(type, delta) {
                 type === 'm' ? '分を入力 (0-59)' : '秒を入力 (0-59)'
         );
         if (input === null) return;
-        const v = parseInt(input);
+        // 全角数字→半角に変換
+        const converted = input.replace(/[０-９]/g, s =>
+            String.fromCharCode(s.charCodeAt(0) - 0xFEE0)
+        );
+
+        const v = parseInt(converted);
         if (!isNaN(v)) {
             timeVals[type] = Math.min(Math.max(0, v), timeMax[type]);
             updateDisp();
@@ -236,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const menuTalk = document.getElementById("menuTalk");
 
     if (!talkBtn || !talkArea || !typing || !talkSelect || !talkChoices || !subQuestion) return;
-    // 前回の文章を消して初期化
+
     function resetTyping() {
         document.querySelectorAll("#typing .line").forEach((el) => {
             el.textContent = "";
