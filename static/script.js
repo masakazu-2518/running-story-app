@@ -237,6 +237,22 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!form) return;
 
     form.addEventListener("submit", function (e) {
+        const inputs = ['h', 'm', 's'];
+        for (const type of inputs) {
+            const el = document.getElementById(type + 'Disp');
+            if (!el) continue;
+            const v = parseInt(el.value);
+            if (!isNaN(v) && v > timeMax[type]) {
+                e.preventDefault();
+                alert(`${type === 'h' ? '時間は0〜23' : '分・秒は0〜59'}で入力してください`);
+                el.focus();
+                return;
+            }
+            // 入力中の値を確定させる
+            if (!isNaN(v)) {
+                timeVals[type] = Math.min(Math.max(0, v), timeMax[type]);
+            }
+        }
         const total = timeVals.h * 3600 + timeVals.m * 60 + timeVals.s;
 
         if (total <= 0) {
