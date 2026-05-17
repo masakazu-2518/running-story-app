@@ -184,7 +184,16 @@ function step(type, delta) {
     el.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            el.blur();
+            if (type === 'h') {
+                document.getElementById('mDisp').focus();
+            } else if (type === 'm') {
+                document.getElementById('sDisp').focus();
+            } else {
+                // 秒でEnterを押したらフォームを送信
+                el.blur();
+                const form = document.querySelector('.form');
+                if (form) form.requestSubmit();
+            }
         }
     });
 });
@@ -226,6 +235,10 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("keydown", function (e) {
         if (e.key !== "Enter") return;
         if (document.activeElement.tagName === "TEXTAREA") return;
+        if (document.activeElement.closest('.time-box') ||
+            document.activeElement.id === 'hDisp' ||
+            document.activeElement.id === 'mDisp' ||
+            document.activeElement.id === 'sDisp') return; // time-boxはそれぞれが制御
         e.preventDefault();
         form.requestSubmit();
     });

@@ -869,8 +869,7 @@ textarea.form_input {
 
 .time-colon {
     font-size: 32px;
-    font-weight: 700;
-    align-self: center;
+    padding-bottom: 20px;
 }
 
 /* result画面 */
