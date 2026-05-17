@@ -218,7 +218,7 @@ function step(type, delta) {
             }
             el.style.borderColor = '';
             el.style.boxShadow = '';
-            el.textContent = pad(timeVals[type]);
+
 
             if (type === 'h') {
                 document.getElementById('mDisp').focus();
